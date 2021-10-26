@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: todo-manage
+  
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  TodoManageFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/todo-manage
+      Handler: app.lambdaHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - arm64
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          # Table名(DynamoDBのテーブル名を入力)
+          tableName: Todo-xxxxxxxxxxxxxxxxxxxx
+      Events:
+        TodoManage:
+          Type: Schedule
+          Properties:
+              # 毎日00時00分に実行 GMTで指定
+              Schedule: cron(0 15 * * ? *)
