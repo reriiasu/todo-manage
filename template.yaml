@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: todo-manage
-  
+
 Globals:
   Function:
     Timeout: 3
@@ -10,7 +10,7 @@ Resources:
   TodoManageFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/todo-manage
+      CodeUri: dist/
       Handler: app.lambdaHandler
       Runtime: nodejs14.x
       Architectures:
@@ -25,5 +25,5 @@ Resources:
         TodoManage:
           Type: Schedule
           Properties:
-              # 毎日00時00分に実行 GMTで指定
-              Schedule: cron(0 15 * * ? *)
+            # 毎日00時00分に実行 GMTで指定
+            Schedule: cron(0 15 * * ? *)
